@@ -3,7 +3,6 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import asyncHandler from "express-async-handler";
 import generateToken from "../utils/generateToken.js";
-import Commande from "../models/commandeModel.js";
 
 // @desc Register User
 // @route POST /api/users/register

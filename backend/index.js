@@ -3,10 +3,10 @@ import cors from "cors";
 import { config } from "dotenv";
 import path from "path";
 import userRoutes from "./routes/userRoutes.js";
-import productRoutes from './routes/productRoutes.js';
+import commercesRoutes from './routes/commerceRoutes.js';
+
 import connectDB from "./config/db.js";
-import commandeRoutes from "./routes/commandeRoutes.js";
-import messageRoutes from "./routes/messageRoutes.js";
+
 
 config();
 connectDB();
@@ -30,14 +30,20 @@ app.use((req, res, next) => {
 
 
 app.use('/api/users', userRoutes);
-app.use('/api/products', productRoutes);
-app.use('/api/commandes', commandeRoutes);
-app.use('/api/messages', messageRoutes);
+app.use('/api/commerces', commercesRoutes);
 
 
-app.get('/', (req, res) => {
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/frontend/build')))
+  app.get('*', (req, res) =>
+      res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+  )
+} else {
+  app.get('/', (req, res) => {
     res.send('API is running...')
-});
+  });
+};
 
 
 
