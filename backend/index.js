@@ -4,6 +4,8 @@ import { config } from "dotenv";
 import path from "path";
 import userRoutes from "./routes/userRoutes.js";
 import commercesRoutes from './routes/commerceRoutes.js';
+import sosRoutes from './routes/sosRoutes.js';
+import temoinRoutes from './routes/temoinRoutes.js';
 
 import connectDB from "./config/db.js";
 
@@ -31,8 +33,8 @@ app.use((req, res, next) => {
 
 app.use('/api/users', userRoutes);
 app.use('/api/commerces', commercesRoutes);
-
-
+app.use('/api/sos', sosRoutes);
+app.use('/api/temoin', temoinRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '/frontend/build')))
